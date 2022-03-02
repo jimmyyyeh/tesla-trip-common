@@ -22,6 +22,21 @@ from app import db, config
 BIND_KEY = config['DB_NAME']
 
 
+class AdministrativeDistrict(db.Model):
+    """
+    行政區列表
+    """
+    __bind_key__ = BIND_KEY
+    __tablename__ = 'administrative_district'
+    id = db.Column(db.Integer, primary_key=True)
+    city = db.Column(db.String(10), nullable=False, comment='縣市')
+    area = db.Column(db.String(10), nullable=False, comment='區域')
+
+    create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
+    update_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now(),
+                                comment='更新時間')
+
+
 class SuperCharger(db.Model):
     """
     超充站列表
