@@ -58,3 +58,29 @@ class SuperCharger(db.Model):
     create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
     update_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now(),
                                 comment='更新時間')
+
+
+class Trip(db.Model):
+    """
+    旅程
+    """
+    __bind_key__ = BIND_KEY
+    __tablename__ = 'trip'
+
+    id = db.Column(db.Integer, primary_key=True)
+    # user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, comment='使用者 id')
+    mileage = db.Column(db.Integer, comment='滿電里程')
+    consumption = db.Column(db.Float, comment='平均電力')
+    total = db.Column(db.Float, comment='電量總計')
+    start = db.Column(db.String(30), nullable=False, comment='起點')
+    end = db.Column(db.String(30), nullable=False, comment='終點')
+    start_battery_level = db.Column(db.Integer, comment='起點電量')
+    end_battery_level = db.Column(db.Integer, comment='終點電量')
+    is_charge = db.Column(db.Boolean, server_default=text('0'), comment='是否充電')
+    charge = db.Column(db.Integer, comment='充電%數')
+    fee = db.Column(db.Integer, comment='充電費用')
+    final_battery_level = db.Column(db.Integer, nullable=False, comment='最終電量')
+
+    create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
+    update_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now(),
+                                comment='更新時間')
