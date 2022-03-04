@@ -105,6 +105,7 @@ class Trip(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, comment='使用者 id')
+    car_id = db.Column(db.Integer, db.ForeignKey('car.id'), nullable=False, comment='車輛 id')
     mileage = db.Column(db.Integer, comment='滿電里程')
     consumption = db.Column(db.Float, comment='平均電力')
     total = db.Column(db.Float, comment='電量總計')
@@ -116,6 +117,7 @@ class Trip(db.Model):
     charge = db.Column(db.Integer, comment='充電%數')
     fee = db.Column(db.Integer, comment='充電費用')
     final_battery_level = db.Column(db.Integer, nullable=False, comment='最終電量')
+    trip_date = db.Column(db.Date, nullable=False, comment='旅程日期')
 
     create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
     update_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now(),
