@@ -22,6 +22,42 @@ from app import db, config
 BIND_KEY = config['DB_NAME']
 
 
+class User(db.Model):
+    """
+    使用者
+    """
+    __bind_key__ = BIND_KEY
+    __tablename__ = 'user'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(30), nullable=False, unique=True, comment='帳號')
+    password = db.Column(db.String(100), nullable=False, comment='密碼')
+    nickname = db.Column(db.String(30), nullable=False, comment='暱稱')
+    email = db.Column(db.String(100), nullable=False, comment='電子郵件')
+    age = db.Column(db.Integer, nullable=False, comment='年齡')
+    sex = db.Column(db.Integer, nullable=False, comment='性別')
+
+    create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
+    update_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now(),
+                                comment='更新時間')
+
+
+class Car(db.Model):
+    """
+    車輛資料
+    """
+    __bind_key__ = BIND_KEY
+    __tablename__ = 'car'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, comment='使用者 id')
+    model = db.Column(db.String(10), comment='型號')
+    spec = db.Column(db.String(30), comment='規格')
+    manufacture_date = db.Column(db.Date, comment='出廠日期')
+
+    create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
+    update_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now(),
+                                comment='更新時間')
+
+
 class AdministrativeDistrict(db.Model):
     """
     行政區列表
@@ -68,7 +104,7 @@ class Trip(db.Model):
     __tablename__ = 'trip'
 
     id = db.Column(db.Integer, primary_key=True)
-    # user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, comment='使用者 id')
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, comment='使用者 id')
     mileage = db.Column(db.Integer, comment='滿電里程')
     consumption = db.Column(db.Float, comment='平均電力')
     total = db.Column(db.Float, comment='電量總計')
