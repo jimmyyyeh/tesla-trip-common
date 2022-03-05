@@ -114,6 +114,7 @@ class Trip(db.Model):
     start_battery_level = db.Column(db.Integer, comment='起點電量')
     end_battery_level = db.Column(db.Integer, comment='終點電量')
     is_charge = db.Column(db.Boolean, server_default=text('0'), comment='是否充電')
+    charger_id = db.Column(db.Integer, db.ForeignKey('charger.id'), comment='超充站 id')
     charge = db.Column(db.Integer, comment='充電%數')
     fee = db.Column(db.Integer, comment='充電費用')
     final_battery_level = db.Column(db.Integer, nullable=False, comment='最終電量')
