@@ -33,7 +33,7 @@ class User(db.Model):
     password = db.Column(db.String(100), nullable=False, comment='密碼')
     nickname = db.Column(db.String(30), nullable=False, comment='暱稱')
     email = db.Column(db.String(100), nullable=False, comment='電子郵件')
-    age = db.Column(db.Integer, nullable=False, comment='年齡')
+    birthday = db.Column(db.Date, comment='生日')
     sex = db.Column(db.Integer, nullable=False, comment='性別')
 
     create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
