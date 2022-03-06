@@ -117,7 +117,6 @@ class Trip(db.Model):
     charger_id = db.Column(db.Integer, db.ForeignKey('super_charger.id'), comment='超充站 id')
     charge = db.Column(db.Integer, comment='充電%數')
     fee = db.Column(db.Integer, comment='充電費用')
-    final_battery_level = db.Column(db.Integer, nullable=False, comment='最終電量')
     trip_date = db.Column(db.Date, nullable=False, comment='旅程日期')
 
     create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
