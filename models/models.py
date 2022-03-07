@@ -35,6 +35,7 @@ class User(db.Model):
     email = db.Column(db.String(100), nullable=False, comment='電子郵件')
     birthday = db.Column(db.Date, comment='生日')
     sex = db.Column(db.Integer, nullable=False, comment='性別')
+    point = db.Column(db.Integer, nullable=False, comment='積分')
 
     create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
     update_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now(),
