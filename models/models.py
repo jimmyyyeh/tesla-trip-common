@@ -35,7 +35,8 @@ class User(db.Model):
     email = db.Column(db.String(100), nullable=False, comment='電子郵件')
     birthday = db.Column(db.Date, comment='生日')
     sex = db.Column(db.Integer, nullable=False, comment='性別')
-    point = db.Column(db.Integer, nullable=False, comment='積分')
+    is_verified = db.Column(db.Boolean, nullable=False, server_default=text('0'), comment='是否已驗證')
+    point = db.Column(db.Integer, nullable=False, server_default=text('0'), comment='積分')
 
     create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
     update_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now(),
