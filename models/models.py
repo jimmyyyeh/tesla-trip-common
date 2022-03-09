@@ -124,3 +124,18 @@ class Trip(db.Model):
     create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
     update_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now(),
                                 comment='更新時間')
+
+
+class TripRate(db.Model):
+    """
+    旅程評分
+    """
+    __bind_key__ = BIND_KEY
+    __tablename__ = 'trip_rate'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, comment='使用者 id')
+    trip_id = db.Column(db.Integer, db.ForeignKey('trip.id'), nullable=False, comment='旅程 id')
+
+    create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
+    update_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now(),
+                                comment='更新時間')
