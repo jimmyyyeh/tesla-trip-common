@@ -43,6 +43,23 @@ class User(db.Model):
                                 comment='更新時間')
 
 
+class PointLog(db.Model):
+    """
+    使用者
+    """
+    __bind_key__ = BIND_KEY
+    __tablename__ = 'point_log'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, comment='使用者 id')
+    type = db.Column(db.Integer, nullable=False, comment='分類')
+    point = db.Column(db.Integer, nullable=False, comment='點數快照')
+    change = db.Column(db.Integer, nullable=False, comment='增減數')
+
+    create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
+    update_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now(),
+                                comment='更新時間')
+
+
 class Car(db.Model):
     """
     車輛資料
