@@ -29,6 +29,7 @@ class User(db.Model):
     __bind_key__ = BIND_KEY
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
+    role = db.Column(db.Integer, nullable=False, server_default=text('1'), comment='角色')
     username = db.Column(db.String(30), nullable=False, unique=True, comment='帳號')
     password = db.Column(db.String(100), nullable=False, comment='密碼')
     nickname = db.Column(db.String(30), nullable=False, comment='暱稱')
@@ -152,6 +153,40 @@ class TripRate(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, comment='使用者 id')
     trip_id = db.Column(db.Integer, db.ForeignKey('trip.id'), nullable=False, comment='旅程 id')
+
+    create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
+    update_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now(),
+                                comment='更新時間')
+
+
+class Product(db.Model):
+    """
+    產品
+    """
+    __bind_key__ = BIND_KEY
+    __tablename__ = 'product'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), nullable=False, comment='名稱')
+    point = db.Column(db.Integer, comment='點數')
+    stock = db.Column(db.Integer, comment='庫存')
+    charger_id = db.Column(db.Integer, db.ForeignKey('super_charger.id'), comment='超充站 id')
+    is_launched = db.Column(db.Boolean, nullable=False, server_default=text('0'), comment='是否上架')
+
+    create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
+    update_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now(),
+                                comment='更新時間')
+
+
+class RedeemLog(db.Model):
+    """
+    兌換紀錄
+    """
+    __bind_key__ = BIND_KEY
+    __tablename__ = 'redeem_log'
+    id = db.Column(db.Integer, primary_key=True)
+    seller_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, comment='賣方 id')
+    buyer_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, comment='買方 id')
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False, comment='產品 id')
 
     create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
     update_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now(),
