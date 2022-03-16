@@ -36,6 +36,7 @@ class User(db.Model):
     email = db.Column(db.String(100), nullable=False, comment='電子郵件')
     birthday = db.Column(db.Date, comment='生日')
     sex = db.Column(db.Integer, nullable=False, comment='性別')
+    charger_id = db.Column(db.Integer, db.ForeignKey('super_charger.id'), comment='管理超充 id')
     is_verified = db.Column(db.Boolean, nullable=False, server_default=text('0'), comment='是否已驗證')
     point = db.Column(db.Integer, nullable=False, server_default=text('0'), comment='積分')
 
