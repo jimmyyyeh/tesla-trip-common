@@ -73,6 +73,7 @@ class Car(db.Model):
     model = db.Column(db.String(10), comment='型號')
     spec = db.Column(db.String(30), comment='規格')
     manufacture_date = db.Column(db.Date, comment='出廠日期')
+    has_image = db.Column(db.Boolean, nullable=False, server_default=text('0'), comment='是否擁有圖片')
 
     create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
     update_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now(),
@@ -168,9 +169,9 @@ class Product(db.Model):
     __tablename__ = 'product'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False, comment='名稱')
-    point = db.Column(db.Integer, comment='點數')
-    stock = db.Column(db.Integer, comment='庫存')
-    charger_id = db.Column(db.Integer, db.ForeignKey('super_charger.id'), comment='超充站 id')
+    point = db.Column(db.Integer, nullable=False, comment='點數')
+    stock = db.Column(db.Integer, nullable=False, comment='庫存')
+    charger_id = db.Column(db.Integer, db.ForeignKey('super_charger.id'), nullable=False, comment='超充站 id')
     is_launched = db.Column(db.Boolean, nullable=False, server_default=text('0'), comment='是否上架')
 
     create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
