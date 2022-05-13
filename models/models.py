@@ -70,8 +70,7 @@ class Car(db.Model):
     __tablename__ = 'car'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, comment='使用者 id')
-    model = db.Column(db.String(10), comment='型號')
-    spec = db.Column(db.String(30), comment='規格')
+    car_model_id = db.Column(db.Integer, db.ForeignKey('car_model.id'), nullable=False, comment='車種型號 id')
     manufacture_date = db.Column(db.Date, comment='出廠日期')
     has_image = db.Column(db.Boolean, nullable=False, server_default=text('0'), comment='是否擁有圖片')
 
