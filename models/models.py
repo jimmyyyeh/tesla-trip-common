@@ -80,6 +80,21 @@ class Car(db.Model):
                                 comment='更新時間')
 
 
+class CarModel(db.Model):
+    """
+    車種型號
+    """
+    __bind_key__ = BIND_KEY
+    __tablename__ = 'car_model'
+    id = db.Column(db.Integer, primary_key=True)
+    model = db.Column(db.String(10), comment='型號')
+    spec = db.Column(db.String(30), comment='規格')
+
+    create_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), comment='建立時間')
+    update_datetime = db.Column(db.DateTime, nullable=False, server_default=func.now(), onupdate=func.now(),
+                                comment='更新時間')
+
+
 class AdministrativeDistrict(db.Model):
     """
     行政區列表
